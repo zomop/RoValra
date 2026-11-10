@@ -799,8 +799,9 @@ async function loadServerIpMap() {
     try {
         if (typeof loadDatacenterMap === 'function') await loadDatacenterMap();
         _state.serverIpMap = serverIpMap;
-    } catch (e) {}
-    _state.serverIpMap = null;
+    } catch {
+        _state.serverIpMap = null;
+    }
 }
 
 export function processUptimeBatch() {
