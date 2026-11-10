@@ -31,6 +31,7 @@ export function clearStore(store) {
 }
 
 export async function migrateFromChromeStorage(legacyKey, store) {
+    let migrationSucceeded = false;
     try {
         const storage = await chrome.storage.local.get([legacyKey]);
         const legacyData = storage[legacyKey];
@@ -41,9 +42,12 @@ export async function migrateFromChromeStorage(legacyKey, store) {
                 await set(store, key, value);
             }
         }
+        migrationSucceeded = true;
     } catch (error) {
         console.warn(`RoValra: Failed to migrate ${legacyKey}`, error);
-    } finally {
+    }
+
+    if (migrationSucceeded) {
         await chrome.storage.local.remove(legacyKey).catch(() => {});
     }
 }
