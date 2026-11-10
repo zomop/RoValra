@@ -1446,6 +1446,8 @@ async function renderAppealsTab(container) {
                 container.innerHTML +=
                     '<p style="margin-top: 20px; color: var(--rovalra-secondary-text-color);">No pending appeals</p>';
             }
+        } else {
+            container.innerHTML += safeHtml`<div style="margin-top: 20px; color: #f93e3e;">Failed to load appeals (HTTP ${response.status}).</div>`;
         }
     } catch (err) {
         container.innerHTML += safeHtml`<div style="margin-top: 20px; color: #f93e3e;">Failed to load appeals: ${err.message}</div>`;
@@ -2005,6 +2007,8 @@ async function renderLogsTab(container) {
                 container.innerHTML +=
                     '<p style="margin-top: 20px; color: var(--rovalra-secondary-text-color);">No action logs found</p>';
             }
+        } else {
+            container.innerHTML += safeHtml`<div style="margin-top: 20px; color: #f93e3e;">Failed to load logs (HTTP ${response.status}).</div>`;
         }
     } catch (err) {
         container.innerHTML += safeHtml`<div style="margin-top: 20px; color: #f93e3e;">Failed to load logs: ${err.message}</div>`;
