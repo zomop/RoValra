@@ -860,7 +860,8 @@ export async function callRobloxApi(options) {
 
     if (shouldCache) {
         activeRequests.set(requestKey, requestPromise);
-        requestPromise.finally(() => activeRequests.delete(requestKey));
+        const cleanupActiveRequest = () => activeRequests.delete(requestKey);
+        requestPromise.then(cleanupActiveRequest, cleanupActiveRequest);
     }
 
     let originalResponse;
